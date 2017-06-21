@@ -1,15 +1,21 @@
-# docker-pgstudio [![](https://badge.imagelayers.io/lukasmartinelli/pgstudio.svg)](https://imagelayers.io/?images=lukasmartinelli/pgstudio:latest 'Get your own badge on imagelayers.io')
+# docker-pgstudio container adapted for OpenShift
 
-PostgreSQL Studio wrapped in a neat little Docker container.
-The image is available on [Docker Hub](https://registry.hub.docker.com/u/lukasmartinelli/pgstudio/).
+Example usage:
 
-Run the image
+    # build and deploy the container from this repo
+    oc new-app https://github.com/tourunen/docker-pgstudio
+    
+    # create a route for the service
+    oc create route edge --service docker-pgstudio --insecure-policy=Redirect
+    
+    # deploy ephemeral postgresql from template
+    # make note of the generated username and password
+    oc new-app --template postgresql-ephemeral
+    
+    # get the generated hostname for the route
+    oc get route docker-pgstudio
 
-```
-docker run --rm -p 8080:8080 -t lukasmartinelli/pgstudio
-```
-
-Connect to your database via `http://localhost:8080` and enter
-your database credentials.
-
-![PostgreSQL Studio Screenshot](screenshot.png)
+Then point your browser to the route host
+  * connect to host 'postgresql'
+  * use database 'sampledb'
+  * use username and password from above
