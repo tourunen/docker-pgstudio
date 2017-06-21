@@ -6,3 +6,5 @@ RUN rm -r ROOT
 RUN wget http://downloads.postgresqlstudio.org/2.0/pgstudio_2.0.zip -O pgstudio_2.0.zip
 RUN unzip pgstudio_2.0.zip && mv pgstudio.war ROOT.war && rm pgstudio_2.0.zip
 WORKDIR $CATALINA_HOME
+RUN chown -R root.root /usr/local/tomcat
+RUN chmod -R g+rwX /usr/local/tomcat
